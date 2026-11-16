@@ -25,28 +25,18 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(json());
 
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://your-frontend-domain.vercel.app',
-    ],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  });
-
   
-  // const allowedOrigins = ['http://localhost:3000',process.env.CLIENT_URL];
-  // app.enableCors({
-  //   origin: (origin, callback) => {
-  //     if (!origin || allowedOrigins.includes(origin)) {
-  //       callback(null, true);
-  //     } else {
-  //       callback(new Error('Not allowed by CORS'));
-  //     }
-  //   },
-  //   credentials: true,
-  // });
+  const allowedOrigins = ['http://localhost:3000',process.env.CLIENT_URL];
+  app.enableCors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  });
 
   app.enableShutdownHooks();
 

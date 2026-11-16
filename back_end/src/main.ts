@@ -27,7 +27,7 @@ async function bootstrap() {
 
   
   // const allowedOrigins = ['http://localhost:3000',process.env.CLIENT_URL];
-  const allowedOrigins = ['http://localhost:3000','https://net-flix-clone-full-stack-c2n6.vercel.app'];
+  const allowedOrigins = ['http://localhost:3000','https://net-flix-clone-full-stack-c2n6.herokuapp.com.app'];
   app.enableCors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {

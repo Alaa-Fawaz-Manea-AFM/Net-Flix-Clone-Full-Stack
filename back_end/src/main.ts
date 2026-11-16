@@ -26,7 +26,7 @@ async function bootstrap() {
   app.use(json());
   const allowedOrigins = [
     'http://localhost:3000',
-    'https://social-media-back-end.herokuapp.com',
+    process.env.CLIENT_URL
   ];
   app.enableCors({
     origin: (origin, callback) => {

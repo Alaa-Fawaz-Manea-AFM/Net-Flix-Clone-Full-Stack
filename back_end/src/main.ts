@@ -2,10 +2,10 @@ import { GlobalExceptionFilter } from './globalErrorHandler';
 import { ValidationPipe } from '@nestjs/common';
 import { WinstonConfig } from './utils/logger';
 import { NestFactory } from '@nestjs/core';
-import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import { json } from 'express';
+import morgan from 'morgan';
 import helmet from 'helmet';
 
 async function bootstrap() {
@@ -24,10 +24,10 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(morgan('dev'));
   app.use(json());
-
-  
-  // const allowedOrigins = ['http://localhost:3000',process.env.CLIENT_URL];
-  const allowedOrigins = ['http://localhost:3000','https://net-flix-clone-full-stack-c2n6.herokuapp.com'];
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://social-media-back-end.herokuapp.com',
+  ];
   app.enableCors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
@@ -38,9 +38,7 @@ async function bootstrap() {
     },
     credentials: true,
   });
-
   app.enableShutdownHooks();
-
   await app.listen(process.env.PORT || 3001);
 }
 

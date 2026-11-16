@@ -12,11 +12,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonConfig,
   });
-  app.enableCors({
-    origin: '*',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  });
 
   app.use(helmet());
   app.useGlobalPipes(
@@ -30,7 +25,7 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(json());
 
-  const allowedOrigins = [process.env.CLIENT_URL];
+  const allowedOrigins = ['http://localhost:3000',process.env.CLIENT_URL];
   app.enableCors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {

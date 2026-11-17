@@ -26,7 +26,8 @@ async function bootstrap() {
   app.use(json());
   const allowedOrigins = [
     'http://localhost:3000',
-    process.env.CLIENT_URL
+    'https://net-flix-clone-full-stack.vercel.app',
+    // process.env.CLIENT_URL
   ];
   app.enableCors({
     origin: (origin, callback) => {

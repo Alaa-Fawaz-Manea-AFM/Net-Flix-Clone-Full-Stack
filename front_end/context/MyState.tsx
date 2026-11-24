@@ -8,8 +8,9 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { getUserData } from "../utils/api";
+// import { getUserData } from "../utils/api";
 import { IHeart, IUser } from "@/types";
+import { getUserDataAction } from "@/actions/auth";
 
 interface IValue {
   user: IUser | null;
@@ -35,13 +36,19 @@ const MyState = ({ children }: { children: React.ReactNode }) => {
   const [heart, setHeart] = useState<Set<IHeart>>(new Set());
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const data = await getUserData();
-        setUser(data?.user || []);
-        setHeart(new Set(data?.hearts) || new Set());
-      } catch {
-        setUser(null);
-      }
+      // try {
+
+      const result = await getUserDataAction();
+      console.log('====================================');
+      console.log("result", result);
+      console.log('====================================');
+      if (!result.success) return setUser(null);
+      // const data = await getUserData();
+      setUser(result.data.user || []);
+      setHeart(new Set(result.data.hearts) || new Set());
+      // } catch {
+      //   setUser(null);
+      // }
     };
 
     fetchUser();

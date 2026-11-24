@@ -29,7 +29,8 @@ model Heart {
   title         String
   backdrop_path String
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User[]
+  // user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, movieId])
 }

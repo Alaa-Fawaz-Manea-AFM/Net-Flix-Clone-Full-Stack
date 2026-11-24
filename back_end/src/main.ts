@@ -24,21 +24,28 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(morgan('dev'));
   app.use(json());
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'https://net-flix-clone-full-stack.vercel.app',
-    // process.env.CLIENT_URL
-  ];
+
+  const allowedOrigins = [process.env.FRONT_END_URL, 'http://localhost:3000'];
   app.enableCors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
+  // const allowedOrigins = [
+  //   'http://localhost:3000',
+  //   'https://net-flix-clone-full-stack.vercel.app',
+  // ];
+  // app.enableCors({
+  //   origin: (origin, callback) => {
+  //     if (!origin || allowedOrigins.includes(origin)) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error('Not allowed by CORS'));
+  //     }
+  //   },
+  //   credentials: true,
+  // });
   app.enableShutdownHooks();
   await app.listen(process.env.PORT || 3001);
 }

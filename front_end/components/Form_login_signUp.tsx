@@ -1,5 +1,5 @@
 "use client";
-import { handle_logIn_And_SignUp } from "@/utils/api";
+// import { handle_logIn_And_SignUp } from "@/utils/api";
 import { Eye, EyeOff, Check, X } from "lucide-react";
 import { useUserContext } from "@/context/MyState";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { IForm } from "@/types";
 import Loader from "./Loader";
 import Link from "next/link";
+import { logInAndSignUpAction } from "@/actions/auth";
 
 type IForm_Log_In_Up = {
   title: "Log In" | "Sign Up";
@@ -70,16 +71,56 @@ const FormLog_in_Up = ({ title, link, toggleLink }: IForm_Log_In_Up) => {
       return toast.error("Password must meet all security requirements!");
     }
 
+    // export const handle_logIn_And_SignUp = async (
+    //   link: string,
+    //   router: AppRouterInstance,
+    //   form: IForm,
+    //   setForm: Dispatch<SetStateAction<IForm>>,
+    //   setUser: Dispatch<SetStateAction<IUser | null>>,
+    //   setHeart: Dispatch<SetStateAction<Set<IHeart>>>,
+    // ) => {
+    //   try {
+    // const { data } = await AxiosClient.post(
+    //   `auth/${link.replace("-", "")}`,
+    //   form,
+    // );
+    setLoading(true);
+    const result = await logInAndSignUpAction(link, form);
+
+    if (!result.success) {
+      toast.error(title + " Failed");
+      setLoading(false);
+      return;
+    }
+
+    setUser(result?.data?.user);
+    if (link == "log-in") {
+      setHeart(new Set(result?.data?.hearts) || new Set());
+    }
+    setForm({ email: "", password: "" });
+    toast.success(`${link} Succesfully`);
+    router.refresh();
+    router.push("/");
     setLoading(false);
-    await handle_logIn_And_SignUp(
-      link,
-      router,
-      form,
-      setForm,
-      setUser,
-      setHeart,
-    );
-    setLoading(false);
+    //   } catch (err) {
+    //     if (axios.isAxiosError(err)) {
+    //       toast.error(err.response?.data?.message || "Sign Up Failed");
+    //     } else {
+    //       toast.error("Sign Up Failed");
+    //     }
+    //   }
+    // };
+
+    // setLoading(false);
+    // await handle_logIn_And_SignUp(
+    //   link,
+    //   router,
+    //   form,
+    //   setForm,
+    //   setUser,
+    //   setHeart,
+    // );
+    // setLoading(false);
     return;
   };
 

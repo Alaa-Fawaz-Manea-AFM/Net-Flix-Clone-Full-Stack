@@ -1,29 +1,43 @@
 "use client";
 import { useUserContext } from "@/context/MyState";
-import AxiosClient from "@/lib/axios-client";
+// import AxiosClient from "@/lib/axios-client";
 import { off_on } from "@/public/assets";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
+import { logoutAction } from "@/actions/auth";
+import { useState } from "react";
 
 const BtnLogIn_Out = () => {
   const { user, setUser, setHeart } = useUserContext();
+  const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
+    setLoading(true);
     setUser(null);
     setHeart(new Set());
-    try {
-      await AxiosClient.post("auth/logout");
-    } catch {
+    // try {
+    // await AxiosClient.post("auth/logout");
+    const result = await logoutAction();
+    if (!result.success) {
+      setLoading(false);
       toast.error("Sign Out Failed");
+      return;
     }
+    setLoading(false);
+    // } catch {
+    //   toast.error("Sign Out Failed");
+    // }
     return;
   };
 
   return (
     <div className="flex items-start md:items-center gap-2 xs:flex-col">
       {user ? (
-        <div className="flex items-center gap-2 cursor-pointer">
+        <button
+          disabled={loading}
+          className={`${loading ? "cursor-not-allowed" : "cursor-pointer"} flex items-center gap-2`}
+        >
           <Image
             onClick={handleSignOut}
             src={off_on}
@@ -32,7 +46,7 @@ const BtnLogIn_Out = () => {
             alt="menu_close"
             unoptimized
           />
-        </div>
+        </button>
       ) : (
         <div className="flex items-center flex-col md:flex-row gap-2">
           <Link href="/log-in" className="cursor-pointer">

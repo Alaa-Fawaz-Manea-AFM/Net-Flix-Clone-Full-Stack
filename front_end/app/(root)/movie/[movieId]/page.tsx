@@ -57,7 +57,7 @@ const MovieDetailsPage = async ({ params }: IParamsDetails) => {
 
   return (
     <div className="w-full min-h-screen pb-16 space-y-12 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-      <div className="relative w-full h-[50vh] sm:h-[65vh] max-h-[800px] overflow-hidden bg-black">
+      <div className="relative w-full h-[50vh] sm:h-[65vh] max-h-200 overflow-hidden bg-black">
         <Suspense
           fallback={
             <div className="absolute inset-0 bg-zinc-800 animate-pulse" />
@@ -72,15 +72,15 @@ const MovieDetailsPage = async ({ params }: IParamsDetails) => {
             unoptimized
           />
         </Suspense>
-        <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-950 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-linear-to-t from-white dark:from-zinc-950 via-transparent to-black/40" />
       </div>
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 lg:gap-12">
-          <div className="w-[240px] sm:w-[300px] shrink-0 shadow-2xl rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+          <div className="w-60 sm:w-75 shrink-0 shadow-2xl rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
             <Suspense
               fallback={
-                <div className="aspect-[2/3] w-full bg-zinc-300 dark:bg-zinc-800 animate-pulse" />
+                <div className="aspect-2/3 w-full bg-zinc-300 dark:bg-zinc-800 animate-pulse" />
               }
             >
               <Image
@@ -142,7 +142,7 @@ const MovieDetailsPage = async ({ params }: IParamsDetails) => {
           <h2 className="text-2xl font-bold tracking-tight border-l-4 border-custom-red pl-3">
             Synopsis
           </h2>
-          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed text-md text-justify whitespace-normal break-words">
+          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed text-md text-justify whitespace-normal wrap-break-word">
             {overview}
           </p>
         </div>
@@ -163,7 +163,7 @@ const MovieDetailsPage = async ({ params }: IParamsDetails) => {
                       <Image
                         width={140}
                         height={60}
-                        className="object-contain max-h-[60px]"
+                        className="object-contain max-h-15"
                         src={`https://image.tmdb.org/t/p/w300${company?.logo_path}`}
                         alt={company?.name}
                         unoptimized

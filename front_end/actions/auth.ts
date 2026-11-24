@@ -7,12 +7,10 @@ import { cookies } from "next/headers";
 export const logInAndSignUpAction = async (link: string, form: IForm) => {
   try {
     const response = await AxiosServer("post", link, undefined, form);
-
     await saveAuthCookies(response);
-
     return {
       success: true,
-      data: response.data.data || null,
+      data: response.data?.data || null,
     };
   } catch {
     return {

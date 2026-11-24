@@ -1,7 +1,6 @@
 "use client";
 import { useUserContext } from "@/context/MyState";
 import { Heart, CheckCheck } from "lucide-react";
-// import { handleToogleHeart } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { IMovieDetailHeart } from "@/types";
 import { useRouter } from "next/navigation";
@@ -23,18 +22,10 @@ const BtnHeart = ({
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    getLike();
+    return getLike();
   }, [heart]);
 
   const handleToogleHeartFun = async (movie: IMovieDetailHeart) => {
-    //     export const handleToogleHeart = async (
-    //   movie: IMovieDetailHeart,
-    //   setHeart: Dispatch<SetStateAction<Set<IHeart>>>,
-    //   route: AppRouterInstance,
-    //   like: boolean,
-    //   heartPage?: boolean,
-    // ) => {
-    //   try {
     setLoading(true);
     const body =
       like || heartPage
@@ -47,7 +38,6 @@ const BtnHeart = ({
             title: movie?.title || movie?.name,
           };
 
-    // const { data } = await AxiosClient.post("heart", body);
     const result = await ToogleHeartAction(body);
     if (!result.success) {
       toast.error("Failed Toogle to My Heart");
@@ -65,11 +55,6 @@ const BtnHeart = ({
     if (heartPage) route.refresh();
     toast.success(result?.message || "filme Heart successfully");
     setLoading(false);
-    // } catch {
-    //   toast.error("Failed Toogle to My Heart");
-    // }
-    // };
-    // return handleToogleHeart(movie, setHeart, route, like, heartPage);
   };
 
   return (

@@ -1,10 +1,10 @@
+import { getUserDataAction } from "@/actions/auth";
 import { HeroImgSignInUp } from "@/components";
-import { getUserId } from "@/lib/token";
 import { redirect } from "next/navigation";
 
 const LayoutAuth = async ({ children }: { children: React.ReactNode }) => {
-  const userId = await getUserId();
-  if (!userId) redirect("/");
+  const userId = await getUserDataAction();
+  if (userId.success) redirect("/");
   return (
     <main className="flex items-center flex-col h-screen w-full select-none">
       <div className="z-[-1020] absolute">

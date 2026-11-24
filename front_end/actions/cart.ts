@@ -1,6 +1,5 @@
 "use server";
 import { AxiosServer } from "@/lib/axios-server";
-import { IMovieDetailHeart } from "@/types";
 
 export const getUserDataAction = async () => {
   try {
@@ -27,49 +26,18 @@ export const ToogleHeartAction = async (
         backdrop_path: string;
         title: string;
       },
-  // movie: IMovieDetailHeart,
-  // setHeart: Dispatch<SetStateAction<Set<IHeart>>>,
-  // route: AppRouterInstance,
-  // like: boolean,
-  // heartPage?: boolean,
 ) => {
   try {
-    // const body =
-    //   like || heartPage
-    //     ? {
-    //         id: movie?.movieId || movie?.id,
-    //       }
-    //     : {
-    //         id: movie?.id,
-    //         backdrop_path: movie?.backdrop_path,
-    //         title: movie?.title || movie?.name,
-    //       };
-
-    const { data } = await AxiosServer("post", "heart", body);
+    const { data } = await AxiosServer("post", "heart", undefined, body);
     return {
       liked: data.data,
       success: true,
       message: data.message,
     };
-    // setHeart((pre) => {
-    //   const newHeart = new Set(pre);
-
-    //   if (data?.data) {
-    //     newHeart.add(Number(movie.id));
-    //   } else {
-    //     newHeart.delete(Number(movie?.movieId || movie?.id));
-    //   }
-
-    //   return newHeart;
-    // });
-
-    // if (heartPage) route.refresh();
-    // toast.success(data?.message || "filme Heart successfully");
   } catch {
     return {
       success: false,
-      message: "Something went wrong, Please try again.",
+      message: "Something went wrong, Please try again later",
     };
-    // toast.error("Failed Toogle to My Heart");
   }
 };

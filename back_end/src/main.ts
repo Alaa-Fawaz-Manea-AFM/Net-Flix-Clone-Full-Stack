@@ -30,6 +30,7 @@ async function bootstrap() {
     origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   // const allowedOrigins = [

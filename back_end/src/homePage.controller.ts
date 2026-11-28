@@ -250,7 +250,7 @@ export class HomeController {
 <div class="header">
    <div class="header">
         <div class="header-content">
-            <div class="logo"><h1><i class="fas fa-hashtag"></i> Social Media API</h1></div>
+            <div class="logo"><h1><i class="fas fa-hashtag"></i> NET-FLIX_CLONE API</h1></div>
             <div class="status"><span class="status-badge"></span><span>Server: ${serverStatus.status}</span><span>Uptime: ${serverStatus.uptime}</span></div>
             <div class="base-url"><i class="fas fa-link"></i> Base URL: <code>${BASE_URL}</code></div>
         </div>

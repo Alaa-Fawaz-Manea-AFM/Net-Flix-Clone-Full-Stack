@@ -38,21 +38,6 @@ const saveAuthCookies = async (response: AxiosResponse) => {
   });
 };
 
-export const getUserDataAction = async () => {
-  try {
-    const { data } = await AxiosServer("get", "auth/me");
-    return {
-      success: true,
-      data: data?.data,
-    };
-  } catch {
-    return {
-      success: false,
-      data: null,
-    };
-  }
-};
-
 export const logoutAction = async () => {
   try {
     await AxiosServer("post", "auth/logout");

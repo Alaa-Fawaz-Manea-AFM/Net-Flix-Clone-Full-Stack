@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IMovieDetailHeart } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { ToogleHeartAction } from "@/actions/cart";
+import { DataActions } from "@/actions/dataActions";
 
 const BtnHeart = ({
   movie,
@@ -38,7 +38,8 @@ const BtnHeart = ({
             title: movie?.title || movie?.name,
           };
 
-    const result = await ToogleHeartAction(body);
+    const result = await DataActions("post", "heart", undefined, body);
+    // const result = await ToogleHeartAction(body);
     if (!result.success) {
       toast.error("Failed Toogle to My Heart");
       setLoading(false);
@@ -47,7 +48,7 @@ const BtnHeart = ({
     setHeart((pre) => {
       const newHeart = new Set(pre);
 
-      if (result.liked) newHeart.add(Number(movie.id));
+      if (result.data.data) newHeart.add(Number(movie.id));
       else newHeart.delete(Number(movie?.movieId || movie?.id));
       return newHeart;
     });

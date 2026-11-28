@@ -6,8 +6,8 @@ A modern Full-Stack Video Streaming Platform UI inspired by popular streaming se
 
 ## 🌐 Live Demo & Project Links
 
-- **Frontend Application:** [Visit STREAMFLIX](FRONTEND_URL)
-- **Backend API:** [Backend Server](BACKEND_URL)
+- **Frontend Application:** [Visit STREAMFLIX](https://net-flix-clone-full-stack-ink8.vercel.app/)
+- **Backend API:** [Backend Server](https://net-flix-clone-full-stack.vercel.app/)
 
 ## ✨ Key Features
 
